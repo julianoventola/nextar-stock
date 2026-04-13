@@ -11,7 +11,7 @@ import {
   getStockHealth,
   canUserAccessOffer,
   computeOfferMetrics,
-} from '@/utils/offerUtils'
+} from '../../src/utils/offerUtils'
 import {
   makeOffer,
   makeExpiredOffer,

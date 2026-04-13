@@ -1,5 +1,5 @@
 import { http, HttpResponse } from 'msw'
-import { Offer } from '@/types'
+import { Offer } from '../../src/types'
 import { makeOffer } from '../fixtures'
 
 // Shared mutable state for integration tests

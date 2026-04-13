@@ -1,4 +1,4 @@
-import { Offer } from '@/types'
+import { Offer } from '../src/types'
 
 export const makeOffer = (overrides: Partial<Offer> = {}): Offer => ({
   id: 'offer-test-001',

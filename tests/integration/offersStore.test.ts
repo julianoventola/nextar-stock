@@ -17,7 +17,7 @@ afterAll(() => server.close())
 // ─── Helper: fresh store instance per test ────────────────────────────────────
 // We re-import the store factory to get a clean state each time
 async function getCleanStore() {
-  const { useOffersStore } = await import('@/store/offersStore')
+  const { useOffersStore } = await import('../../src/store/offersStore')
   // Reset store to initial state by calling with a fresh state
   useOffersStore.setState({
     offers: [],
@@ -72,7 +72,7 @@ describe('Store: updateStockOptimistic — optimistic update', () => {
   })
 
   it('applies stock change immediately before server response (optimistic)', async () => {
-    const { useOffersStore } = await import('@/store/offersStore')
+    const { useOffersStore } = await import('../../src/store/offersStore')
     const initialStock = useOffersStore.getState().offers.find(o => o.id === 'offer-001')!.stock
 
     // Don't await — check state before server resolves
@@ -86,7 +86,7 @@ describe('Store: updateStockOptimistic — optimistic update', () => {
   })
 
   it('confirms stock after server response', async () => {
-    const { useOffersStore } = await import('@/store/offersStore')
+    const { useOffersStore } = await import('../../src/store/offersStore')
     await useOffersStore.getState().updateStockOptimistic({ offerId: 'offer-001', delta: -10 })
 
     const offer = useOffersStore.getState().offers.find(o => o.id === 'offer-001')!
@@ -95,7 +95,7 @@ describe('Store: updateStockOptimistic — optimistic update', () => {
   })
 
   it('sets syncState to saving during the request', async () => {
-    const { useOffersStore } = await import('@/store/offersStore')
+    const { useOffersStore } = await import('../../src/store/offersStore')
     const promise = useOffersStore.getState().updateStockOptimistic({ offerId: 'offer-001', delta: -5 })
 
     const syncState = useOffersStore.getState().syncStates['offer-001']
@@ -105,7 +105,7 @@ describe('Store: updateStockOptimistic — optimistic update', () => {
   })
 
   it('validates before applying — sets error without touching stock', async () => {
-    const { useOffersStore } = await import('@/store/offersStore')
+    const { useOffersStore } = await import('../../src/store/offersStore')
     const offer = useOffersStore.getState().offers.find(o => o.id === 'offer-001')!
     const originalStock = offer.stock
 
@@ -118,7 +118,7 @@ describe('Store: updateStockOptimistic — optimistic update', () => {
   })
 
   it('rejects update on inactive offer', async () => {
-    const { useOffersStore } = await import('@/store/offersStore')
+    const { useOffersStore } = await import('../../src/store/offersStore')
     await useOffersStore.getState().updateStockOptimistic({ offerId: 'offer-003', delta: -1 })
     expect(useOffersStore.getState().syncStates['offer-003']?.status).toBe('error')
   })
@@ -130,7 +130,7 @@ describe('Store: updateStockOptimistic — rollback on failure', () => {
   it('rolls back to snapshot on network error', async () => {
     server.use(networkErrorHandler)
 
-    const { useOffersStore } = await import('@/store/offersStore')
+    const { useOffersStore } = await import('../../src/store/offersStore')
     store.setState({ offers: [] })
     await useOffersStore.getState().fetchOffers()
 
@@ -149,7 +149,7 @@ describe('Store: updateStockOptimistic — version conflict (409)', () => {
   it('detects version conflict and sets conflict syncState', async () => {
     server.use(conflictHandler)
 
-    const { useOffersStore } = await import('@/store/offersStore')
+    const { useOffersStore } = await import('../../src/store/offersStore')
     useOffersStore.setState({ offers: [makeOffer({ id: 'offer-001', stock: 50, version: 1 })] })
 
     await useOffersStore.getState().updateStockOptimistic({ offerId: 'offer-001', delta: -5 })
@@ -162,7 +162,7 @@ describe('Store: updateStockOptimistic — version conflict (409)', () => {
   it('rolls back optimistic state on version conflict', async () => {
     server.use(conflictHandler)
 
-    const { useOffersStore } = await import('@/store/offersStore')
+    const { useOffersStore } = await import('../../src/store/offersStore')
     useOffersStore.setState({ offers: [makeOffer({ id: 'offer-001', stock: 50, version: 1 })] })
     const originalStock = 50
 
@@ -177,7 +177,7 @@ describe('Store: updateStockOptimistic — version conflict (409)', () => {
 
 describe('Store: updateOfferOptimistic', () => {
   it('applies field change optimistically', async () => {
-    const { useOffersStore } = await import('@/store/offersStore')
+    const { useOffersStore } = await import('../../src/store/offersStore')
     useOffersStore.setState({
       offers: [makeOffer({ id: 'offer-001', status: 'active', version: 1 })],
       syncStates: {},
@@ -197,7 +197,7 @@ describe('Store: updateOfferOptimistic', () => {
   })
 
   it('confirms update and increments version after server success', async () => {
-    const { useOffersStore } = await import('@/store/offersStore')
+    const { useOffersStore } = await import('../../src/store/offersStore')
     useOffersStore.setState({
       offers: [makeOffer({ id: 'offer-001', status: 'active', version: 1 })],
       syncStates: {},
@@ -216,7 +216,7 @@ describe('Store: updateOfferOptimistic', () => {
 
   it('rolls back on network error', async () => {
     server.use(networkErrorHandler)
-    const { useOffersStore } = await import('@/store/offersStore')
+    const { useOffersStore } = await import('../../src/store/offersStore')
     useOffersStore.setState({
       offers: [makeOffer({ id: 'offer-001', title: 'Original', version: 1 })],
       syncStates: {},
@@ -238,32 +238,32 @@ describe('Store: updateOfferOptimistic', () => {
 
 describe('Store: UI state actions', () => {
   it('selectOffer sets selectedOfferId', async () => {
-    const { useOffersStore } = await import('@/store/offersStore')
+    const { useOffersStore } = await import('../../src/store/offersStore')
     useOffersStore.getState().selectOffer('offer-001')
     expect(useOffersStore.getState().selectedOfferId).toBe('offer-001')
   })
 
   it('selectOffer with null deselects', async () => {
-    const { useOffersStore } = await import('@/store/offersStore')
+    const { useOffersStore } = await import('../../src/store/offersStore')
     useOffersStore.setState({ selectedOfferId: 'offer-001' })
     useOffersStore.getState().selectOffer(null)
     expect(useOffersStore.getState().selectedOfferId).toBeNull()
   })
 
   it('setFilterStatus updates filterStatus', async () => {
-    const { useOffersStore } = await import('@/store/offersStore')
+    const { useOffersStore } = await import('../../src/store/offersStore')
     useOffersStore.getState().setFilterStatus('paused')
     expect(useOffersStore.getState().filterStatus).toBe('paused')
   })
 
   it('setSearchQuery updates searchQuery', async () => {
-    const { useOffersStore } = await import('@/store/offersStore')
+    const { useOffersStore } = await import('../../src/store/offersStore')
     useOffersStore.getState().setSearchQuery('iphone')
     expect(useOffersStore.getState().searchQuery).toBe('iphone')
   })
 
   it('clearGlobalError resets globalError', async () => {
-    const { useOffersStore } = await import('@/store/offersStore')
+    const { useOffersStore } = await import('../../src/store/offersStore')
     useOffersStore.setState({ globalError: 'Some error' })
     useOffersStore.getState().clearGlobalError()
     expect(useOffersStore.getState().globalError).toBeNull()
@@ -274,7 +274,7 @@ describe('Store: UI state actions', () => {
 
 describe('Selector: selectFilteredOffers', () => {
   it('returns all offers when filters are default', async () => {
-    const { useOffersStore, selectFilteredOffers } = await import('@/store/offersStore')
+    const { useOffersStore, selectFilteredOffers } = await import('../../src/store/offersStore')
     useOffersStore.setState({
       offers: [
         makeOffer({ id: '1', status: 'active', category: 'electronics' }),
@@ -288,7 +288,7 @@ describe('Selector: selectFilteredOffers', () => {
   })
 
   it('filters by status correctly', async () => {
-    const { useOffersStore, selectFilteredOffers } = await import('@/store/offersStore')
+    const { useOffersStore, selectFilteredOffers } = await import('../../src/store/offersStore')
     useOffersStore.setState({
       offers: [
         makeOffer({ id: '1', status: 'active' }),
@@ -304,7 +304,7 @@ describe('Selector: selectFilteredOffers', () => {
   })
 
   it('filters by search query on title', async () => {
-    const { useOffersStore, selectFilteredOffers } = await import('@/store/offersStore')
+    const { useOffersStore, selectFilteredOffers } = await import('../../src/store/offersStore')
     useOffersStore.setState({
       offers: [
         makeOffer({ id: '1', title: 'iPhone 15 Pro' }),
@@ -320,7 +320,7 @@ describe('Selector: selectFilteredOffers', () => {
   })
 
   it('filters by search query on tags', async () => {
-    const { useOffersStore, selectFilteredOffers } = await import('@/store/offersStore')
+    const { useOffersStore, selectFilteredOffers } = await import('../../src/store/offersStore')
     useOffersStore.setState({
       offers: [
         makeOffer({ id: '1', tags: ['black-friday'] }),
@@ -335,7 +335,7 @@ describe('Selector: selectFilteredOffers', () => {
   })
 
   it('applies multiple filters simultaneously', async () => {
-    const { useOffersStore, selectFilteredOffers } = await import('@/store/offersStore')
+    const { useOffersStore, selectFilteredOffers } = await import('../../src/store/offersStore')
     useOffersStore.setState({
       offers: [
         makeOffer({ id: '1', status: 'active', category: 'electronics', title: 'iPhone' }),
