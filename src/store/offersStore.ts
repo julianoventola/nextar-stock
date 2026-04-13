@@ -13,7 +13,6 @@ import {
 } from '../types/index'
 import { offerApi } from '../services/offerApi'
 import { validateStockDelta, applyStockDelta } from '../utils/offerUtils'
-import { version } from 'react'
 
 // ─── Store Actions ────────────────────────────────────────────────────────────
 
@@ -41,6 +40,7 @@ interface OffersActions {
 }
 
 // ─── Initial State ────────────────────────────────────────────────────────────
+const timers = new Map<string, ReturnType<typeof setTimeout>>();
 
 const initialState: OffersState = {
   offers: [],
@@ -105,12 +105,9 @@ export const useOffersStore = create<OffersState & OffersActions>()(
 
       // 1. Save snapshot for rollback
       const snapshot = { ...offer }
-      console.log("Offer", offer);
-
 
       // 2. Apply optimistic update immediately
       const optimisticOffer = applyStockDelta({ ...offer, version: offer.version + 1 }, delta)
-      console.log("optimisticOffer", optimisticOffer);
 
       set(state => ({
         offers: state.offers.map(o => (o.id === offerId ? optimisticOffer : o)),
@@ -128,7 +125,17 @@ export const useOffersStore = create<OffersState & OffersActions>()(
         _setSyncState(offerId, { status: 'success' })
 
         // Auto-clear success state
-        setTimeout(() => _clearSyncState(offerId), 2500)
+        const existing = timers.get(offerId);
+        if (existing) {
+          clearTimeout(existing);
+        }
+
+        const timeoutId = setTimeout(() => {
+          _clearSyncState(offerId);
+          timers.delete(offerId);
+        }, 2500);
+
+        timers.set(offerId, timeoutId);
       } catch (error) {
         const isConflict = isVersionConflict(error)
 
@@ -176,7 +183,19 @@ export const useOffersStore = create<OffersState & OffersActions>()(
           offers: state.offers.map(o => (o.id === payload.id ? confirmed : o)),
         }))
         _setSyncState(payload.id, { status: 'success' })
-        setTimeout(() => _clearSyncState(payload.id), 2500)
+
+        // Auto-clear success state
+        const existing = timers.get(payload.id);
+        if (existing) {
+          clearTimeout(existing);
+        }
+
+        const timeoutId = setTimeout(() => {
+          _clearSyncState(payload.id);
+          timers.delete(payload.id);
+        }, 2500);
+
+        timers.set(payload.id, timeoutId);
       } catch (error) {
         set(state => ({
           offers: state.offers.map(o => (o.id === payload.id ? snapshot : o)),
