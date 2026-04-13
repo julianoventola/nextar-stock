@@ -4,22 +4,23 @@ import {
   selectFilteredOffers,
   selectSyncState,
   selectOfferById,
-} from '@/store/offersStore'
-import { computeOfferMetrics } from '@/utils/offerUtils'
+} from '../store/offersStore'
+import { useShallow } from 'zustand/react/shallow'
+import { computeOfferMetrics } from '../utils/offerUtils'
 
 /**
  * Returns filtered offers based on current filter state.
  * Subscribes only to offers + filter fields — not the whole store.
  */
 export function useFilteredOffers() {
-  return useOffersStore(selectFilteredOffers)
+  return useOffersStore(useShallow(selectFilteredOffers))
 }
 
 /**
  * Returns dashboard-level metrics. Memoized to avoid recomputation.
  */
 export function useOfferMetrics() {
-  const offers = useOffersStore(s => s.offers)
+  const offers = useOffersStore(useShallow(s => s.offers))
   return useMemo(() => computeOfferMetrics(offers), [offers])
 }
 
@@ -27,14 +28,14 @@ export function useOfferMetrics() {
  * Returns sync state for a specific offer ID.
  */
 export function useOfferSyncState(offerId: string) {
-  return useOffersStore(selectSyncState(offerId))
+  return useOffersStore(useShallow(selectSyncState(offerId)))
 }
 
 /**
  * Returns a single offer by ID.
  */
 export function useOffer(id: string) {
-  return useOffersStore(selectOfferById(id))
+  return useOffersStore(useShallow(selectOfferById(id)))
 }
 
 /**
@@ -42,7 +43,7 @@ export function useOffer(id: string) {
  * Components that only dispatch actions won't re-render on state changes.
  */
 export function useOfferActions() {
-  return useOffersStore(s => ({
+  return useOffersStore(useShallow(s => ({
     fetchOffers: s.fetchOffers,
     updateStockOptimistic: s.updateStockOptimistic,
     updateOfferOptimistic: s.updateOfferOptimistic,
@@ -52,5 +53,5 @@ export function useOfferActions() {
     setSearchQuery: s.setSearchQuery,
     refreshOffer: s.refreshOffer,
     clearGlobalError: s.clearGlobalError,
-  }))
+  })))
 }

@@ -1,6 +1,6 @@
 import { RefreshCw } from 'lucide-react'
-import { useOfferActions } from '@/hooks/useOffers'
-import { useOffersStore } from '@/store/offersStore'
+import { useOfferActions } from '../../hooks/useOffers'
+import { useOffersStore } from '../../store/offersStore'
 
 export function AppHeader() {
   const { fetchOffers } = useOfferActions()

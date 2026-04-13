@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
-import { AppHeader } from '@/components/layout/AppHeader'
-import { Sidebar } from '@/components/layout/Sidebar'
-import { MetricsPanel } from '@/components/offers/MetricsPanel'
-import { OffersGrid } from '@/components/offers/OffersGrid'
-import { useOfferActions } from '@/hooks/useOffers'
-import { useOffersStore } from '@/store/offersStore'
+import { AppHeader } from './components/layout/AppHeader'
+import { Sidebar } from './components/layout/Sidebar'
+import { MetricsPanel } from './components/offers/MetricsPanel'
+import { OffersGrid } from './components/offers/OffersGrid'
+import { useOfferActions } from './hooks/useOffers'
+import { useOffersStore } from './store/offersStore'
 
 function GlobalErrorBanner() {
   const error = useOffersStore(s => s.globalError)
@@ -37,7 +37,7 @@ export default function App() {
 
   useEffect(() => {
     fetchOffers()
-  }, [fetchOffers])
+  }, [])
 
   return (
     <div className="app-shell">

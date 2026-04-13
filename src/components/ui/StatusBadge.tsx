@@ -1,4 +1,4 @@
-import { OfferStatus } from '@/types'
+import { type OfferStatus } from '../../types/index'
 
 interface StatusBadgeProps {
   status: OfferStatus

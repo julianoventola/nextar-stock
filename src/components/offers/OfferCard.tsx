@@ -1,11 +1,11 @@
-import { Offer } from '@/types'
-import { useOfferActions, useOfferSyncState } from '@/hooks/useOffers'
-import { useOffersStore } from '@/store/offersStore'
-import { formatCurrency, calculateSavings } from '@/utils/offerUtils'
-import { StatusBadge } from '@/components/ui/StatusBadge'
-import { StockBar } from '@/components/ui/StockBar'
-import { StockControls } from '@/components/ui/StockControls'
-import { SyncIndicator } from '@/components/ui/SyncIndicator'
+import { type Offer } from '../../types'
+import { useOfferActions, useOfferSyncState } from '../../hooks/useOffers'
+import { useOffersStore } from '../../store/offersStore'
+import { formatCurrency, calculateSavings } from '../../utils/offerUtils'
+import { StatusBadge } from '../ui/StatusBadge'
+import { StockBar } from '../ui/StockBar'
+import { StockControls } from '../ui/StockControls'
+import { SyncIndicator } from '../ui/SyncIndicator'
 
 interface OfferCardProps {
   offer: Offer

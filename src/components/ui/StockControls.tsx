@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Minus, Plus } from 'lucide-react'
-import { Offer } from '@/types'
-import { useOfferActions } from '@/hooks/useOffers'
-import { validateStockDelta } from '@/utils/offerUtils'
+import { type Offer } from '../../types/index'
+import { useOfferActions } from '../../hooks/useOffers'
+import { validateStockDelta } from '../../utils/offerUtils'
 
 interface StockControlsProps {
   offer: Offer

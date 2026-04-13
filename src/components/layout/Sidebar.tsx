@@ -1,6 +1,7 @@
-import { useOffersStore } from '@/store/offersStore'
-import { useOfferActions } from '@/hooks/useOffers'
-import { OfferStatus, OfferCategory } from '@/types'
+import { useOffersStore } from '../../store/offersStore'
+import { useShallow } from 'zustand/react/shallow'
+import { useOfferActions } from '../../hooks/useOffers'
+import { type OfferStatus, type OfferCategory } from '../../types/index'
 
 const STATUS_OPTIONS: { value: OfferStatus | 'all'; label: string }[] = [
   { value: 'all', label: 'Todas' },
@@ -19,12 +20,12 @@ const CATEGORY_OPTIONS: { value: OfferCategory | 'all'; label: string }[] = [
 ]
 
 export function Sidebar() {
-  const { filterStatus, filterCategory, offers, searchQuery } = useOffersStore(s => ({
+  const { filterStatus, filterCategory, offers, searchQuery } = useOffersStore(useShallow(s => ({
     filterStatus: s.filterStatus,
     filterCategory: s.filterCategory,
     offers: s.offers,
     searchQuery: s.searchQuery,
-  }))
+  })))
   const { setFilterStatus, setFilterCategory, setSearchQuery } = useOfferActions()
 
   const countByStatus = (status: OfferStatus | 'all') =>

@@ -1,17 +1,19 @@
 import { create } from 'zustand'
 import { subscribeWithSelector } from 'zustand/middleware'
+
 import {
-  Offer,
-  OffersState,
-  OfferSyncState,
-  SyncStatus,
-  StockDelta,
-  UpdateOfferPayload,
-  OfferStatus,
-  OfferCategory,
-} from '@/types'
-import { offerApi } from '@/services/offerApi'
-import { validateStockDelta, applyStockDelta } from '@/utils/offerUtils'
+  type Offer,
+  type OffersState,
+  type OfferSyncState,
+  type SyncStatus,
+  type StockDelta,
+  type UpdateOfferPayload,
+  type OfferStatus,
+  type OfferCategory,
+} from '../types/index'
+import { offerApi } from '../services/offerApi'
+import { validateStockDelta, applyStockDelta } from '../utils/offerUtils'
+import { version } from 'react'
 
 // ─── Store Actions ────────────────────────────────────────────────────────────
 
@@ -59,6 +61,7 @@ export const useOffersStore = create<OffersState & OffersActions>()(
 
     // ── Fetch all offers ─────────────────────────────────────────────────────
     fetchOffers: async () => {
+      if (get().isLoading) return
       set({ isLoading: true, globalError: null })
       try {
         const offers = await offerApi.getAll()
@@ -102,9 +105,13 @@ export const useOffersStore = create<OffersState & OffersActions>()(
 
       // 1. Save snapshot for rollback
       const snapshot = { ...offer }
+      console.log("Offer", offer);
+
 
       // 2. Apply optimistic update immediately
-      const optimisticOffer = applyStockDelta(offer, delta)
+      const optimisticOffer = applyStockDelta({ ...offer, version: offer.version + 1 }, delta)
+      console.log("optimisticOffer", optimisticOffer);
+
       set(state => ({
         offers: state.offers.map(o => (o.id === offerId ? optimisticOffer : o)),
       }))
@@ -156,7 +163,7 @@ export const useOffersStore = create<OffersState & OffersActions>()(
       if (!offer) return
 
       const snapshot = { ...offer }
-      const optimistic: Offer = { ...offer, ...payload.changes }
+      const optimistic: Offer = { ...offer, version: offer.version + 1, ...payload.changes }
 
       set(state => ({
         offers: state.offers.map(o => (o.id === payload.id ? optimistic : o)),

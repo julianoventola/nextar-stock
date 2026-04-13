@@ -1,7 +1,5 @@
-
-
-import { useOfferMetrics } from '@/hooks/useOffers'
-import { formatCurrency } from '@/utils/offerUtils'
+import { useOfferMetrics } from '../../hooks/useOffers'
+import { formatCurrency } from '../../utils/offerUtils'
 
 export function MetricsPanel() {
   const metrics = useOfferMetrics()

@@ -1,5 +1,5 @@
-import { useFilteredOffers } from '@/hooks/useOffers'
-import { useOffersStore } from '@/store/offersStore'
+import { useFilteredOffers } from '../../hooks/useOffers'
+import { useOffersStore } from '../../store/offersStore'
 import { OfferCard } from './OfferCard'
 
 function SkeletonCard() {

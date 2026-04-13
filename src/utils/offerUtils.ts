@@ -1,4 +1,10 @@
-import { Offer, OfferMetrics, StockHealth, StockUpdateError, UserRole } from '@/types'
+import {
+  type Offer,
+  type OfferMetrics,
+  type StockHealth,
+  type StockUpdateError,
+  type UserRole
+} from '../types/index'
 
 // ─── Stock Validation ─────────────────────────────────────────────────────────
 
@@ -30,7 +36,7 @@ export function applyStockDelta(offer: Offer, delta: number): Offer {
   return {
     ...offer,
     stock: offer.stock + delta,
-    updatedAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
   }
 }
 
@@ -162,10 +168,10 @@ export function computeOfferMetrics(offers: Offer[]): OfferMetrics {
       offers.length === 0
         ? 0
         : Math.round(
-            (offers.reduce((acc, o) => acc + o.discountPercentage, 0) /
-              offers.length) *
-              100
-          ) / 100,
+          (offers.reduce((acc, o) => acc + o.discountPercentage, 0) /
+            offers.length) *
+          100
+        ) / 100,
   }
 }
 

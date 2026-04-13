@@ -1,5 +1,5 @@
-import { Offer } from '@/types'
-import { getStockHealth } from '@/utils/offerUtils'
+import { type Offer } from '../../types/index'
+import { getStockHealth } from '../../utils/offerUtils'
 
 interface StockBarProps {
   offer: Offer

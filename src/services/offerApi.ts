@@ -1,4 +1,4 @@
-import { Offer, UpdateOfferPayload, ApiError } from '@/types'
+import { type Offer, type UpdateOfferPayload, type ApiError } from '../types/index'
 
 const API_BASE = 'http://localhost:3001'
 
