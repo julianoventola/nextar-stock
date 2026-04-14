@@ -1,13 +1,6 @@
 {
-  "functions": {
-    "api/server.js": {
-      "includeFiles": "db.json"
-    }
-  },
+  "version": 2,
   "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "api/server.ts"
-    }
+    { "source": "/api/(.*)", "destination": "/api/server" }
   ]
 }
