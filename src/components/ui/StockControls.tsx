@@ -3,6 +3,7 @@ import { Minus, Plus } from 'lucide-react'
 import { type Offer } from '../../types/index'
 import { useOfferActions } from '../../hooks/useOffers'
 import { validateStockDelta } from '../../utils/offerUtils'
+import './StockControls.css'
 
 interface StockControlsProps {
   offer: Offer

@@ -1,0 +1,71 @@
+/* ─── Stock Bar ──────────────────────────────────────────────────────────────── */
+.stock-section {
+  margin-bottom: var(--space-4);
+}
+
+.stock-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-2);
+}
+
+.stock-label {
+  font-size: 10px;
+  color: var(--color-text-muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+}
+
+.stock-value {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.stock-value--healthy {
+  color: var(--color-stock-healthy);
+}
+
+.stock-value--warning {
+  color: var(--color-stock-warning);
+}
+
+.stock-value--critical {
+  color: var(--color-stock-critical);
+}
+
+.stock-value--empty {
+  color: var(--color-stock-empty);
+}
+
+.stock-bar-track {
+  height: 4px;
+  background: var(--color-surface-3);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.stock-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width var(--transition-slow);
+}
+
+.stock-bar-fill--healthy {
+  background: var(--color-stock-healthy);
+}
+
+.stock-bar-fill--warning {
+  background: var(--color-stock-warning);
+}
+
+.stock-bar-fill--critical {
+  background: var(--color-stock-critical);
+}
+
+.stock-bar-fill--empty {
+  background: var(--color-stock-empty);
+  width: 0 !important;
+}

@@ -84,7 +84,7 @@ export function Filters() {
         </div>
 
         {/* Legend */}
-        <div style={{ marginTop: 'auto' }}>
+        <div className='sidebar__section-stock'>
           <div className="sidebar__section-label">Legenda — Estoque</div>
           {[
             { color: 'var(--color-stock-healthy)', label: 'Normal (>30%)' },

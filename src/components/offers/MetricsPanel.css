@@ -1,0 +1,64 @@
+/* ─── Metrics Grid ───────────────────────────────────────────────────────────── */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-4);
+}
+
+.metric-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  position: relative;
+  overflow: hidden;
+  transition: border-color var(--transition-base);
+}
+
+.metric-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+}
+
+.metric-card--accent::before {
+  background: var(--color-accent);
+}
+
+.metric-card--success::before {
+  background: var(--color-success);
+}
+
+.metric-card--warning::before {
+  background: var(--color-warning);
+}
+
+.metric-card--danger::before {
+  background: var(--color-danger);
+}
+
+.metric-card__label {
+  font-size: 10px;
+  color: var(--color-text-muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+  margin-bottom: var(--space-2);
+}
+
+.metric-card__value {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 28px;
+  color: var(--color-text-primary);
+  line-height: 1;
+}
+
+.metric-card__sub {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  margin-top: var(--space-1);
+}

@@ -1,5 +1,6 @@
 import { type Offer } from '../../types/index'
 import { getStockHealth } from '../../utils/offerUtils'
+import "./StockBar.css"
 
 interface StockBarProps {
   offer: Offer

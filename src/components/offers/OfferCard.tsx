@@ -6,7 +6,7 @@ import { StatusBadge } from '../ui/StatusBadge'
 import { StockBar } from '../ui/StockBar'
 import { StockControls } from '../ui/StockControls'
 import { SyncIndicator } from '../ui/SyncIndicator'
-
+import "./OfferCard.css"
 interface OfferCardProps {
   offer: Offer
 }

@@ -1,6 +1,7 @@
 import { Loader2, CheckCircle2, XCircle, AlertTriangle } from 'lucide-react'
 import { type OfferSyncState } from '../../types/index'
 import { useOfferActions } from '../../hooks/useOffers'
+import "./SyncIndicator.css"
 
 interface SyncIndicatorProps {
   syncState: OfferSyncState

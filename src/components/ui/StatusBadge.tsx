@@ -1,4 +1,5 @@
 import { type OfferStatus } from '../../types/index'
+import "./StatusBadge.css"
 
 interface StatusBadgeProps {
   status: OfferStatus

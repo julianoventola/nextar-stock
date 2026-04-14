@@ -1,12 +1,10 @@
-
 /* ─── Header ─────────────────────────────────────────────────────────────────── */
 .app-header {
   background: var(--color-surface);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: var(--space-3);
-  padding: 0 var(--space-6);
+  padding: var(--space-2) var(--space-6) 0;
   gap: var(--space-4);
 }
 
@@ -20,7 +18,3 @@
   align-items: center;
   gap: var(--space-2);
 }
-
-
-
-

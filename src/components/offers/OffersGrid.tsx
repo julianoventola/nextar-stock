@@ -1,6 +1,7 @@
 import { useFilteredOffers } from '../../hooks/useOffers'
 import { useOffersStore } from '../../store/offersStore'
 import { OfferCard } from './OfferCard'
+import "./OffersGrid.css"
 
 function SkeletonCard() {
   return (

@@ -1,0 +1,124 @@
+/* ─── Offer Cards ────────────────────────────────────────────────────────────── */
+.offers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-4);
+}
+
+.offer-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all var(--transition-base);
+  position: relative;
+  cursor: pointer;
+}
+
+.offer-card:hover {
+  border-color: var(--color-border-subtle);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.offer-card.selected {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 1px var(--color-accent), var(--shadow-md);
+}
+
+.offer-card.syncing {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Sync indicator strip */
+.offer-card__sync-strip {
+  height: 2px;
+  width: 100%;
+}
+
+.offer-card__sync-strip--saving {
+  background: linear-gradient(90deg, var(--color-info) 0%, transparent 100%);
+  animation: sweep 1s linear infinite;
+}
+
+.offer-card__sync-strip--success {
+  background: var(--color-success);
+}
+
+.offer-card__sync-strip--error {
+  background: var(--color-danger);
+}
+
+.offer-card__sync-strip--conflict {
+  background: var(--color-warning);
+}
+
+@keyframes sweep {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.offer-card__body {
+  padding: var(--space-5);
+}
+
+.offer-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.offer-card__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--color-text-primary);
+  line-height: 1.3;
+}
+
+.offer-card__category {
+  font-size: 10px;
+  color: var(--color-text-muted);
+  letter-spacing: 0.5px;
+  margin-top: 2px;
+  font-family: var(--font-mono);
+}
+
+.offer-card__pricing {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.offer-card__price-current {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 22px;
+  color: var(--color-text-primary);
+}
+
+.offer-card__price-original {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  text-decoration: line-through;
+  font-family: var(--font-mono);
+}
+
+.offer-card__discount-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--color-accent-dim);
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+}
