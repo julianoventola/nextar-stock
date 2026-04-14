@@ -79,13 +79,13 @@
 .offer-card__title {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 15px;
+  font-size: 16px;
   color: var(--color-text-primary);
   line-height: 1.3;
 }
 
 .offer-card__category {
-  font-size: 10px;
+  font-size: 12px;
   color: var(--color-text-muted);
   letter-spacing: 0.5px;
   margin-top: 2px;
@@ -94,9 +94,15 @@
 
 .offer-card__pricing {
   display: flex;
+  justify-content: space-between;
   align-items: baseline;
   gap: var(--space-3);
   margin-bottom: var(--space-4);
+}
+
+.offer-card__pricing-wrapper{
+  display: flex;
+  flex-direction: column;
 }
 
 .offer-card__price-current {
@@ -107,14 +113,14 @@
 }
 
 .offer-card__price-original {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--color-text-muted);
   text-decoration: line-through;
   font-family: var(--font-mono);
 }
 
 .offer-card__discount-badge {
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 700;
   padding: 2px 8px;
   border-radius: var(--radius-sm);

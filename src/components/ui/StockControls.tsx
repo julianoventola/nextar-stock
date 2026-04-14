@@ -28,6 +28,7 @@ export function StockControls({ offer, disabled = false }: StockControlsProps) {
 
   const canDecrement = offer.stock - delta >= 0 && offer.status === 'active'
   const canIncrement = offer.stock + delta <= offer.maxStock && offer.status === 'active'
+  const maxToIncrement = offer.maxStock - offer.stock
 
   return (
     <div className="stock-controls" onClick={e => e.stopPropagation()}>
@@ -42,10 +43,21 @@ export function StockControls({ offer, disabled = false }: StockControlsProps) {
       </button>
 
       <input
+        className="stock-range"
+        type="range"
+        min={1}
+        max={maxToIncrement}
+        value={delta}
+        onChange={e => setDelta(Math.max(1, parseInt(e.target.value) || 1))}
+        title="Quantidade do delta"
+        aria-label="Quantidade"
+        style={{ width: "100%" }}
+      />
+      <input
         className="stock-input"
         type="number"
         min={1}
-        max={100}
+        max={maxToIncrement}
         value={delta}
         onChange={e => setDelta(Math.max(1, parseInt(e.target.value) || 1))}
         title="Quantidade do delta"

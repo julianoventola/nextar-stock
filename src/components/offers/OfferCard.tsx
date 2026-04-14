@@ -25,7 +25,8 @@ export function OfferCard({ offer }: OfferCardProps) {
   const isSelected = selectedId === offer.id
   const isSyncing = syncState.status === 'saving'
   const savings = calculateSavings(offer)
-
+  console.log(offer);
+  
   return (
     <div
       className={`offer-card fade-in ${isSelected ? 'selected' : ''} ${isSyncing ? 'syncing' : ''}`}
@@ -55,12 +56,14 @@ export function OfferCard({ offer }: OfferCardProps) {
 
         {/* Pricing */}
         <div className="offer-card__pricing">
-          <span className="offer-card__price-current">
-            {formatCurrency(offer.discountedPrice)}
-          </span>
-          <span className="offer-card__price-original">
-            {formatCurrency(offer.originalPrice)}
-          </span>
+          <div className='offer-card__pricing-wrapper'>
+            <span className="offer-card__price-current">
+              {formatCurrency(offer.discountedPrice)}
+            </span>
+            <span className="offer-card__price-original">
+              {formatCurrency(offer.originalPrice)}
+            </span>
+          </div>
           <span className="offer-card__discount-badge">
             -{offer.discountPercentage}%
           </span>
@@ -68,7 +71,7 @@ export function OfferCard({ offer }: OfferCardProps) {
 
         {savings > 0 && (
           <div style={{ fontSize: 11, color: 'var(--color-success)', fontFamily: 'var(--font-mono)', marginBottom: 12 }}>
-            Economia de {formatCurrency(savings)}
+            Desconto de {formatCurrency(savings)}
           </div>
         )}
 

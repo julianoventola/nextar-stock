@@ -6,7 +6,7 @@
 }
 
 .stock-btn {
-  width: 28px;
+  width: 64px;
   height: 28px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--color-border);
@@ -44,6 +44,22 @@
   font-family: var(--font-mono);
   font-size: 12px;
   outline: none;
+}
+
+.stock-range {
+  appearance: none;
+  height: 6px;
+  background: #1f2937;
+  border-radius: 999px;
+}
+
+.stock-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #ef4444;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
 .stock-input:focus {
