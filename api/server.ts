@@ -3,7 +3,7 @@ import path from 'path';
 
 const server = jsonServer.create();
 // IMPORTANT: Use the path to your db.json
-const router = jsonServer.router(path.join(__dirname, '../db.json'));
+const router = jsonServer.router(path.join(__dirname, '/api/db.json'));
 const middlewares = jsonServer.defaults();
 
 server.use(middlewares);
