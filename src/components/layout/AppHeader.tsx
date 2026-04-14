@@ -1,6 +1,8 @@
 import { RefreshCw } from 'lucide-react'
 import { useOfferActions } from '../../hooks/useOffers'
 import { useOffersStore } from '../../store/offersStore'
+import NextarIcon from "../../assets/nextar.svg";
+import "./AppHeader.css"
 
 export function AppHeader() {
   const { fetchOffers } = useOfferActions()
@@ -9,15 +11,7 @@ export function AppHeader() {
   return (
     <header className="app-header">
       <div className="app-header__logo">
-        <span className="app-header__logo-dot" />
-        OfferControl
-      </div>
-
-      <div className="app-header__spacer" />
-
-      <div className="app-header__status">
-        <span className="status-dot" />
-        json-server · localhost:3001
+        <img src={NextarIcon} alt="" />
       </div>
 
       <button
@@ -25,7 +19,7 @@ export function AppHeader() {
         onClick={fetchOffers}
         disabled={isLoading}
         title="Recarregar dados"
-        style={{ padding: '4px 10px' }}
+        style={{ padding: '12px 16px' }}
       >
         <RefreshCw size={12} style={isLoading ? { animation: 'spin 1s linear infinite' } : {}} />
         Atualizar
