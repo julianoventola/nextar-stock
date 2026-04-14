@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { AppHeader } from './components/layout/AppHeader'
-import { Sidebar } from './components/layout/Sidebar'
+import { Filters } from './components/layout/Filters'
 import { MetricsPanel } from './components/offers/MetricsPanel'
 import { OffersGrid } from './components/offers/OffersGrid'
 import { useOfferActions } from './hooks/useOffers'
@@ -43,7 +43,7 @@ export default function App() {
     <div className="app-shell">
       <AppHeader />
       <div className="main-content">
-        <Sidebar />
+        <Filters />
         <main className="content-area">
           <GlobalErrorBanner />
           <div>

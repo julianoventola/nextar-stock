@@ -2,13 +2,15 @@ import { useOffersStore } from '../../store/offersStore'
 import { useShallow } from 'zustand/react/shallow'
 import { useOfferActions } from '../../hooks/useOffers'
 import { type OfferStatus, type OfferCategory } from '../../types/index'
+import { ChartColumn, CircleDollarSign, CirclePause, Calendar, ClockAlert } from "lucide-react";
+import './Filters.css'
 
-const STATUS_OPTIONS: { value: OfferStatus | 'all'; label: string }[] = [
-  { value: 'all', label: 'Todas' },
-  { value: 'active', label: 'Ativas' },
-  { value: 'paused', label: 'Pausadas' },
-  { value: 'scheduled', label: 'Agendadas' },
-  { value: 'expired', label: 'Expiradas' },
+const STATUS_OPTIONS: { value: OfferStatus | 'all'; label: string, icon: React.ReactNode }[] = [
+  { value: 'all', label: 'Todas', icon: <ChartColumn /> },
+  { value: 'active', label: 'Ativas', icon: <CircleDollarSign /> },
+  { value: 'paused', label: 'Pausadas', icon: <CirclePause /> },
+  { value: 'scheduled', label: 'Agendadas', icon: <Calendar /> },
+  { value: 'expired', label: 'Expiradas', icon: <ClockAlert /> },
 ]
 
 const CATEGORY_OPTIONS: { value: OfferCategory | 'all'; label: string }[] = [
@@ -19,7 +21,7 @@ const CATEGORY_OPTIONS: { value: OfferCategory | 'all'; label: string }[] = [
   { value: 'software', label: 'Software' },
 ]
 
-export function Sidebar() {
+export function Filters() {
   const { filterStatus, filterCategory, offers, searchQuery } = useOffersStore(useShallow(s => ({
     filterStatus: s.filterStatus,
     filterCategory: s.filterCategory,
@@ -56,7 +58,7 @@ export function Sidebar() {
               className={`filter-btn ${filterStatus === opt.value ? 'active' : ''}`}
               onClick={() => setFilterStatus(opt.value)}
             >
-              {opt.label}
+              {opt.icon} {opt.label} 
               <span className="filter-btn__count">{countByStatus(opt.value)}</span>
             </button>
           ))}
@@ -66,11 +68,11 @@ export function Sidebar() {
       {/* Category filter */}
       <div>
         <div className="sidebar__section-label">Categoria</div>
-        <div className="filter-group">
+        <div className="filter-categories-group">
           {CATEGORY_OPTIONS.map(opt => (
             <button
               key={opt.value}
-              className={`filter-btn ${filterCategory === opt.value ? 'active' : ''}`}
+              className={`filter-categories-btn ${filterCategory === opt.value ? 'active' : ''}`}
               onClick={() => setFilterCategory(opt.value)}
             >
               {opt.label}
