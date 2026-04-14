@@ -84,7 +84,8 @@ body {
   color: var(--color-text-primary);
   font-family: var(--font-mono);
   min-height: 100vh;
-  overflow-x: hidden;
+  max-width: 1440px;
+  margin: 0 auto;
 }
 
 /* Scrollbar */
@@ -107,15 +108,13 @@ body {
 }
 
 /* ─── Layout ─────────────────────────────────────────────────────────────────── */
-.app-shell {
-  display: grid;
-  grid-template-rows: auto 1fr;
+.app {
   min-height: 100vh;
 }
 
 .main-content {
-  display: grid;
-  grid-template-columns: 260px 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 0;
   height: calc(100vh - 100px);
   overflow: hidden;

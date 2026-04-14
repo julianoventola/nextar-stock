@@ -40,7 +40,7 @@ export default function App() {
   }, [])
 
   return (
-    <div className="app-shell">
+    <div className="app">
       <AppHeader />
       <div className="main-content">
         <Filters />
