@@ -11,13 +11,13 @@ import {
   getStockHealth,
   canUserAccessOffer,
   computeOfferMetrics,
-} from '../../src/utils/offerUtils'
+} from '../../../src/utils/offerUtils'
 import {
   makeOffer,
   makeExpiredOffer,
   makeCriticalStockOffer,
   makeOutOfStockOffer,
-} from '../fixtures'
+} from '../../fixtures'
 
 // ─── validateStockDelta ───────────────────────────────────────────────────────
 

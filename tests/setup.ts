@@ -1,10 +1,11 @@
-import '@testing-library/jest-dom'
-import { cleanup } from '@testing-library/react'
-import { afterEach, vi } from 'vitest'
+import { beforeAll, afterAll, afterEach,vi } from 'vitest'
+import { setupServer } from 'msw/node'
 
-afterEach(() => {
-  cleanup()
-})
+export const server = setupServer()
+
+beforeAll(() => server.listen())
+afterEach(() => server.resetHandlers())
+afterAll(() => server.close())
 
 // Suppress console.error noise in tests
 vi.spyOn(console, 'error').mockImplementation(() => {})
